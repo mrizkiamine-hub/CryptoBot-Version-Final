@@ -1,0 +1,18 @@
+{
+  "created_at_utc": "2026-03-01T04:27:55.401008",
+  "dataset": "data/processed/ml_rsi_dataset_plus.csv",
+  "rows": 36415,
+  "period_start": "2022-01-02T13:00:00+00:00",
+  "period_end": "2026-02-27T20:00:00+00:00",
+  "model": "LogisticRegression(class_weight=balanced)",
+  "features": [
+    "ret_1h",
+    "ret_3h",
+    "ret_6h",
+    "rsi_14",
+    "trend_24h",
+    "vol_24h",
+    "rsi_slope_6h"
+  ],
+  "threshold": 0.56
+}

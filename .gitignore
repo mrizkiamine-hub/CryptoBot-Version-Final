@@ -1,0 +1,21 @@
+# Data (ne pas versionner les fichiers bruts/traités)
+data/raw/
+data/processed/
+data/archive/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Env / secrets
+.env
+.env.*
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+!.env.step4.example
+_archive_20260308/
