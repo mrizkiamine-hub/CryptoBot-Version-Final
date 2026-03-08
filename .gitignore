@@ -19,3 +19,6 @@ __pycache__/
 *.log
 !.env.step4.example
 _archive_20260308/
+
+# Data archives & trash (local only)
+data/_trash_*/
