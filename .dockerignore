@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+_archive_20260308/
+data/
+*.log
+.env
+.env.*.env.*

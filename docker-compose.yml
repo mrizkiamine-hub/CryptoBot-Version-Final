@@ -33,6 +33,16 @@ services:
       timeout: 3s
       retries: 20
 
+  ui:
+    build: ./ui
+    environment:
+      API_URL: http://api:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      api:
+        condition: service_healthy
+
   mongodb:
     image: mongo:7.0
     container_name: my_mongo
