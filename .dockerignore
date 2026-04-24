@@ -1,7 +1,18 @@
+# Python / venv
 .venv/
 __pycache__/
+*.pyc
+
+# Local archives & data (non nécessaires au build)
 _archive_20260308/
 data/
+logs/
 *.log
+
+# Env secrets
 .env
-.env.*.env.*
+.env.*
+
+# Git / editor
+.git/
+.vscode/
