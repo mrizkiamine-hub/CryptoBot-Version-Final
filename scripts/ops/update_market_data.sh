@@ -16,7 +16,7 @@ echo "[$(ts)] ETL start" | tee -a "$LOG_FILE"
 
 # 1) Fetch latest Binance chunks (script is idempotent: SKIP existing files)
 echo "[$(ts)] Fetch Binance klines..." | tee -a "$LOG_FILE"
-python scripts/etl/fetch/01_binance_fetch_klines_chunks.py >> "$LOG_FILE" 2>&1 || true
+/home/ubuntu/cryptobot/.venv/bin/python scripts/etl/fetch/01_binance_fetch_klines_chunks.py >> "$LOG_FILE" 2>&1 || true
 
 # 2) Load only new JSON files into RAW (skip files already in raw_market_data.source_file)
 echo "[$(ts)] Load new RAW snapshots..." | tee -a "$LOG_FILE"
@@ -44,7 +44,7 @@ else
     # load only if not already present
     if ! grep -qx "$base" "$loaded_tmp"; then
       echo "[$(ts)] LOADING $base" | tee -a "$LOG_FILE"
-      PG_URI="$PG_URI" python scripts/etl/load/01_file_json_to_raw.py --path "$f" >> "$LOG_FILE" 2>&1
+      PG_URI="$PG_URI" /home/ubuntu/cryptobot/.venv/bin/python scripts/etl/load/01_file_json_to_raw.py --path "$f" >> "$LOG_FILE" 2>&1
       new_count=$((new_count+1))
     fi
   done
