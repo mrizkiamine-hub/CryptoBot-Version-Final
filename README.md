@@ -14,20 +14,19 @@ Projet réalisé dans le cadre de la formation DataScientest.
 ## 🗂️ Structure (fichiers utiles)
 cryptobot/
 ├── app/                          # API FastAPI (Step 4)
-│   ├── main.py                   # Endpoints /health /predict /signal/latest /drift/latest
+│   ├── main.py                   # Endpoints /health /predict /signal/latest
 │   ├── core/                     # settings (.env) + erreurs
 │   ├── db.py                     # accès Postgres + fetch_latest_closes()
-│   └── ml/                       # loader modèle + schemas + features + drift
+│   └── ml/                       # loader modèle + schemas + features
 │
 ├── ui/                           # UI Streamlit (local) - consomme l'API
-│   ├── streamlit_app.py          # onglets: Signal latest / Drift / Predict
+│   ├── streamlit_app.py          # onglets: Signal latest / Predict
 │   ├── requirements.txt
 │   └── Dockerfile
 │
 ├── models/                       # Artefacts ML figés (Step 4)
 │   ├── logreg_rsi_plus.joblib
 │   ├── metadata.json
-│   └── drift_reference.json
 │
 ├── scripts/
 │   ├── etl/
@@ -36,9 +35,8 @@ cryptobot/
 │   ├── ml_final/                 # Step 3 final retenu (dataset + backtest)
 │   │   ├── 08b_build_rsi_dataset_plus.py
 │   │   └── 19_backtest_tpsl_sequential.py
-│   ├── step4/                    # Step 4: export artefacts + drift + smoke test
+│   ├── step4/                    # Step 4: export artefacts + smoke test
 │   │   ├── train_export_model.py
-│   │   ├── build_drift_reference.py
 │   │   └── smoke_test_step4.sh
 │   └── ops/                      # Automatisation local (cron)
 │       └── run_latest_signal.sh  # appelle /signal/latest + logs JSONL + rotation
@@ -71,7 +69,6 @@ cryptobot/
 - Threshold : `0.56`
 - Dataset final : `data/processed/ml_rsi_dataset_plus.csv`
 - Artefacts exportés : `models/logreg_rsi_plus.joblib` + `models/metadata.json`
-- Drift reference : `models/drift_reference.json` (stats entraînement)
 
 ---
 
@@ -82,12 +79,11 @@ cryptobot/
 - GET `/model/info` : features + threshold + metadata
 - POST `/predict` : `proba_buy` + `signal_buy` (features en entrée)
 - POST `/signal/latest` : lit Postgres, calcule RSI+, renvoie un signal (dernière bougie)
-- GET `/drift/latest?window=720` : drift report simple (stats ref vs fenêtre récente DB)
 
 Swagger : http://127.0.0.1:8000/docs
 
 ### Robustesse DB
-- DB down → `/signal/latest` et `/drift/latest` renvoient **503**
+- DB down → `/signal/latest` renvoie **503**
 - `/health` et `/predict` restent OK
 
 ---
@@ -126,7 +122,6 @@ URL : [http://127.0.0.1:8501](http://127.0.0.1:8501)
 Onglets UI :
 
 * **Signal latest (DB)** : appelle `POST /signal/latest` (DB → features → predict)
-* **Drift (DB)** : appelle `GET /drift/latest?window=...`
 * **Predict (manual)** : appelle `POST /predict` (saisie des 7 features)
 
 ---
@@ -169,7 +164,7 @@ bash scripts/step4/smoke_test_step4.sh
 Ce test vérifie :
 
 * `/health`, `/model/info`, `/predict` OK
-* `/signal/latest` et `/drift/latest` OK (DB up)
+* `/signal/latest` OK (DB up)
 * DB down → endpoints DB renvoient 503 (et API non-DB reste OK)
 
 ---

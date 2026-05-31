@@ -68,5 +68,7 @@ services:
 volumes:
   pgdata:
   mongodata:
+    external: true
+    name: cryptobot_mongo_data
 
   
