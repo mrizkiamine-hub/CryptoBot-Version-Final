@@ -61,14 +61,22 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     depends_on:
       postgres:
         condition: service_healthy
 
 volumes:
   pgdata:
+    external: true
+    name: cryptobot_pgdata
+
   mongodata:
     external: true
     name: cryptobot_mongo_data
 
+  pgadmin_data:
+    external: true
+    name: cryptobot_pgadmin_data_v2
   

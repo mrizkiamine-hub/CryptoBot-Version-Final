@@ -15,7 +15,7 @@ class Settings(BaseSettings):
 
     # DB (pour /signal/latest)
     ENABLE_DB_FEATURES: bool = True
-    PG_URI: str = "postgresql+psycopg2://daniel:datascientest@localhost:5432/dst_db"
+    PG_URI: str = "postgresql+psycopg2://YOUR_USER:YOUR_PASSWORD@localhost:5432/YOUR_DATABASE"
     MARKET_SYMBOL: str = "BTCUSDT"
     INTERVAL_CODE: str = "1h"
     LOOKBACK_ROWS: int = 300  # marge pour RSI(14), trend/vol 24h, etc.

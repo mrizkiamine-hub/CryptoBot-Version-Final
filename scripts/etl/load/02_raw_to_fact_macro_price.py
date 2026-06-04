@@ -20,6 +20,7 @@ Usage:
 """
 
 import argparse
+import os
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Tuple, Optional
 
@@ -28,12 +29,15 @@ from psycopg2.extras import execute_values
 
 
 PG_CONFIG = {
-    "host": "localhost",
-    "port": 5432,
-    "dbname": "dst_db",
-    "user": "daniel",
-    "password": "datascientest",
+    "host": os.getenv("PGHOST", "127.0.0.1"),
+    "port": int(os.getenv("PGPORT", "5432")),
+    "dbname": os.getenv("POSTGRES_DB", "dst_db"),
+    "user": os.getenv("POSTGRES_USER", "daniel"),
+    "password": os.getenv("POSTGRES_PASSWORD"),
 }
+
+if not PG_CONFIG["password"]:
+    raise RuntimeError("POSTGRES_PASSWORD is not set")
 
 
 def ms_to_date(ms: int) -> str:

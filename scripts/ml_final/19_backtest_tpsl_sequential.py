@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 import argparse
+import os
 import pandas as pd
 from sqlalchemy import create_engine
 from sklearn.linear_model import LogisticRegression
 
-PG_URI = "postgresql+psycopg2://daniel:datascientest@localhost:5432/dst_db"
+PG_URI = os.getenv("PG_URI_HOST")
+if not PG_URI:
+    raise RuntimeError("PG_URI_HOST is not set")
 
 FEATURES = ["ret_1h", "ret_3h", "ret_6h", "rsi_14", "trend_24h", "vol_24h", "rsi_slope_6h"]
 

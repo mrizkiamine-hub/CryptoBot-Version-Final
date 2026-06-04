@@ -138,7 +138,7 @@ Register Server (dans pgAdmin) :
 * Port : `5432`
 * DB : `dst_db`
 * User : `daniel`
-* Password : `datascientest`
+* Password : valeur définie localement dans `.env`
 
 Exemples :
 
